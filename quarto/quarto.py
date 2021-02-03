@@ -10,7 +10,7 @@ def path():
     return shutil.which("quarto")
   else:
     return path_env
-
+  
 
 def find_quarto():
   quarto = path()
