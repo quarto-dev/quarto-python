@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/quarto-dev/quarto-python",
     packages=setuptools.find_packages(),
-    install_requires=["pyyaml", "jupyter"],
+    install_requires=["jupyter_core", "nbformat", "nbclient", "pyyaml", "ipykernel"],
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
