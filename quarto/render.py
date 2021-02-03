@@ -1,5 +1,12 @@
 
 import sys
+import subprocess
+
+from quarto.quarto import find_quarto
 
 def render(input):
-  print("render", file = sys.stdout)
+  args = ["render", input]
+  process = subprocess.Popen([find_quarto()] + args)
+  process.wait()
+
+
