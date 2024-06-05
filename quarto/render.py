@@ -7,6 +7,44 @@ import subprocess
 
 from quarto.quarto import find_quarto
 
+def render_to_path(input,
+           output_format = None,
+           output_file = None,
+           execute = True,
+           execute_params = None,
+           execute_dir = None,
+           cache = None,
+           cache_refresh = False,
+           kernel_keepalive = None,
+           kernel_restart = False,
+           debug = False,
+           quiet = False,
+           pandoc_args = None,
+           output_dir_path=None):
+
+  render(input=input,
+           output_format=output_format,
+           output_file=output_file,
+           execute=execute,
+           execute_params=execute_params,
+           execute_dir=execute_dir,
+           cache=cache,
+           cache_refresh=cache_refresh,
+           kernel_keepalive=kernel_keepalive,
+           kernel_restart=kernel_restart,
+           debug=debug,
+           quiet=quiet,
+           pandoc_args=pandoc_args)
+
+  if output_dir_path is not None:
+    output_file_path = os.path.join(output_folder, output_file)
+    if output_file is None:
+      output_file = os.path.basename(input)
+    os.makedirs(output_dir_path, exist_ok=True)
+    os.rename(output_file, output_file_path)
+
+  return output_file_path
+
 def render(input,
            output_format = None,
            output_file = None,
