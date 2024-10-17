@@ -33,6 +33,9 @@ def render(input,
   if output_file is not None:
     args.extend(["--output", output_file])
   
+  if output_dir is not None:
+    args.extend(["--output-dir", output_dir])
+
   if execute is not None:
     if execute is True:
       args.append("--execute")
