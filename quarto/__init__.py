@@ -6,3 +6,4 @@ __version__ = "0.1.0"
 from quarto.quarto import path
 from quarto.render import render
 from quarto.metadata import metadata
+from quarto.theme import plotly_theme_colors, plotly_theme_brand
