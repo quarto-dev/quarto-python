@@ -1,5 +1,5 @@
-import yaml
 from functools import partial
+from brand_yml import Brand
 
 def theme_colors_altair(bg, fg):
   return {
@@ -19,9 +19,9 @@ def theme_colors_altair(bg, fg):
   }
 
 def theme_brand_altair(brand_yml):
-    brand = yaml.safe_load(open(brand_yml).read())
-    bg = brand["color"]["background"]
-    fg = brand["color"]["foreground"]
+    brand = Brand.from_yaml(brand_yml)
+    bg = brand.color.background
+    fg = brand.color.foreground
     return partial(theme_colors_altair, bg, fg)
 
 # background fill is incomplete
@@ -44,9 +44,9 @@ def theme_colors_bokeh(bg, fg):
   }})
 
 def theme_brand_bokeh(brand_yml):
-  brand = yaml.safe_load(open(brand_yml).read())
-  fg = brand["color"]["foreground"]
-  bg = brand["color"]["background"]
+  brand = Brand.from_yaml(brand_yml)
+  fg = brand.color.foreground
+  bg = brand.color.background
   return partial(theme_colors_bokeh, bg, fg)
 
 
@@ -56,9 +56,9 @@ def theme_colors_great_tables(bg, fg):
     'table_font_color': fg
   }
 def theme_brand_great_tables(brand_yml):
-  brand = yaml.safe_load(open(brand_yml).read())
-  fg = brand["color"]["foreground"]
-  bg = brand["color"]["background"]
+  brand = Brand.from_yaml(brand_yml)
+  fg = brand.color.foreground
+  bg = brand.color.background
   return theme_colors_great_tables(bg, fg)
 
 
@@ -79,12 +79,12 @@ def theme_colors_matplotlib(bg, fg, primary):
 
 
 def theme_brand_matplotlib(brand_yml):
-  brand = yaml.safe_load(open(brand_yml).read())
+  brand = Brand.from_yaml(brand_yml)
   return partial(
     theme_colors_matplotlib,
-    brand["color"]["background"],
-    brand["color"]["foreground"],
-    brand["color"].get("primary"),
+    brand.color.background,
+    brand.color.foreground,
+    brand.color.primary,
   )
 
 
@@ -96,8 +96,8 @@ def theme_colors_plotnine(bg, fg):
   )
 
 def theme_brand_plotnine(brand_yml):
-  brand = yaml.safe_load(open(brand_yml).read())
-  return theme_colors_plotnine(brand["color"]["background"], brand["color"]["foreground"])
+  brand = Brand.from_yaml(brand_yml)
+  return theme_colors_plotnine(brand.color.background, brand.color.foreground)
 
 
 def theme_colors_plotly(bg, fg):
@@ -109,8 +109,8 @@ def theme_colors_plotly(bg, fg):
   }})
 
 def theme_brand_plotly(brand_yml):
-  brand = yaml.safe_load(open(brand_yml).read())
-  return theme_colors_plotly(brand["color"]["background"], brand["color"]["foreground"])
+  brand = Brand.from_yaml(brand_yml)
+  return theme_colors_plotly(brand.color.background, brand.color.foreground)
 
 
 def theme_colors_pygal(_bg, fg, primary, secondary):
@@ -127,12 +127,12 @@ def theme_colors_pygal(_bg, fg, primary, secondary):
     colors=('#E853A0', '#E8537A', '#E95355', '#E87653', '#E89B53'))
 
 def theme_brand_pygal(brand_yml):
-  brand = yaml.safe_load(open(brand_yml).read())
+  brand = Brand.from_yaml(brand_yml)
   return theme_colors_pygal(
-    brand["color"]["background"],
-    brand["color"]["foreground"],
-    brand["color"]["primary"],
-    brand["color"].get("secondary"),
+    brand.color.background,
+    brand.color.foreground,
+    brand.color.primary,
+    brand.color.secondary,
   )
 
 
@@ -152,5 +152,5 @@ def theme_colors_seaborn(bg, fg):
   }
 
 def theme_brand_seaborn(brand_yml):
-    brand = yaml.safe_load(open(brand_yml).read())
-    return theme_colors_seaborn(brand["color"]["background"], brand["color"]["foreground"])
+    brand = Brand.from_yaml(brand_yml)
+    return theme_colors_seaborn(brand.color.background, brand.color.foreground)
