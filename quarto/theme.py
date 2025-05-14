@@ -84,7 +84,7 @@ def theme_brand_matplotlib(brand_yml):
     theme_colors_matplotlib,
     brand["color"]["background"],
     brand["color"]["foreground"],
-    brand["color"]["primary"],
+    brand["color"].get("primary"),
   )
 
 
