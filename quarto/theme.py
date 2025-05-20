@@ -1,49 +1,61 @@
 from functools import partial
-from brand_yml import Brand
+
 
 def theme_colors_altair(bg, fg):
   return {
-    'config': {
-      'view': {'stroke': 'transparent'},
-      'axis': {
-        'domainColor': fg,
-        'labelColor': fg,
-        'titleColor': fg,
+    "config": {
+      "view": {"stroke": "transparent"},
+      "axis": {
+        "domainColor": fg,
+        "labelColor": fg,
+        "titleColor": fg,
       },
-      'legend': {
-        'labelColor': fg,
-        'titleColor': fg,
+      "legend": {
+        "labelColor": fg,
+        "titleColor": fg,
       },
-      'background': bg,  # Background color
+      "background": bg,  # Background color
     }
   }
 
+
 def theme_brand_altair(brand_yml):
-    brand = Brand.from_yaml(brand_yml)
-    bg = brand.color.background
-    fg = brand.color.foreground
-    return partial(theme_colors_altair, bg, fg)
+  from brand_yml import Brand
+
+  brand = Brand.from_yaml(brand_yml)
+  bg = brand.color.background
+  fg = brand.color.foreground
+  return partial(theme_colors_altair, bg, fg)
+
 
 # background fill is incomplete
 def theme_colors_bokeh(bg, fg):
   from bokeh.io import curdoc
   from bokeh.themes import Theme
-  curdoc().theme = Theme(json={'attrs': {
-    'figure': {
-      'background_fill_color': bg, # just plot area
-    },
-    'Title': {
-      'background_fill_color': bg,
-      'text_color': fg,
-    },
-    'Axis': {
-      'background_fill_color': bg,
-      'axis_label_text_color': fg,
-      'major_label_text_color': fg,
-    },
-  }})
+
+  curdoc().theme = Theme(
+    json={
+      "attrs": {
+        "figure": {
+          "background_fill_color": bg,  # just plot area
+        },
+        "Title": {
+          "background_fill_color": bg,
+          "text_color": fg,
+        },
+        "Axis": {
+          "background_fill_color": bg,
+          "axis_label_text_color": fg,
+          "major_label_text_color": fg,
+        },
+      }
+    }
+  )
+
 
 def theme_brand_bokeh(brand_yml):
+  from brand_yml import Brand
+
   brand = Brand.from_yaml(brand_yml)
   fg = brand.color.foreground
   bg = brand.color.background
@@ -51,11 +63,12 @@ def theme_brand_bokeh(brand_yml):
 
 
 def theme_colors_great_tables(bg, fg):
-  return {
-    'table_background_color': bg,
-    'table_font_color': fg
-  }
+  return {"table_background_color": bg, "table_font_color": fg}
+
+
 def theme_brand_great_tables(brand_yml):
+  from brand_yml import Brand
+
   brand = Brand.from_yaml(brand_yml)
   fg = brand.color.foreground
   bg = brand.color.background
@@ -65,6 +78,7 @@ def theme_brand_great_tables(brand_yml):
 def theme_colors_matplotlib(bg, fg, primary):
   import matplotlib as mpl
   from cycler import cycler
+
   mpl.rcParams["axes.facecolor"] = bg
   mpl.rcParams["axes.edgecolor"] = fg
   mpl.rcParams["axes.labelcolor"] = fg
@@ -75,10 +89,12 @@ def theme_colors_matplotlib(bg, fg, primary):
   mpl.rcParams["xtick.color"] = fg
   mpl.rcParams["ytick.color"] = fg
   if primary:
-    mpl.rcParams["axes.prop_cycle"] = cycler('color', [primary])
+    mpl.rcParams["axes.prop_cycle"] = cycler("color", [primary])
 
 
 def theme_brand_matplotlib(brand_yml):
+  from brand_yml import Brand
+
   brand = Brand.from_yaml(brand_yml)
   return partial(
     theme_colors_matplotlib,
@@ -90,43 +106,59 @@ def theme_brand_matplotlib(brand_yml):
 
 def theme_colors_plotnine(bg, fg):
   from plotnine import theme, element_rect, element_text
+
   return theme(
-    plot_background=element_rect(fill=bg, size=0),
-    text=element_text(color=fg)
+    plot_background=element_rect(fill=bg, size=0), text=element_text(color=fg)
   )
 
+
 def theme_brand_plotnine(brand_yml):
+  from brand_yml import Brand
+
   brand = Brand.from_yaml(brand_yml)
   return theme_colors_plotnine(brand.color.background, brand.color.foreground)
 
 
 def theme_colors_plotly(bg, fg):
   import plotly.graph_objects as go
-  return go.layout.Template({'layout': {
-    'paper_bgcolor': bg,
-    'plot_bgcolor': bg,
-    'font_color': fg,
-  }})
+
+  return go.layout.Template(
+    {
+      "layout": {
+        "paper_bgcolor": bg,
+        "plot_bgcolor": bg,
+        "font_color": fg,
+      }
+    }
+  )
+
 
 def theme_brand_plotly(brand_yml):
+  from brand_yml import Brand
+
   brand = Brand.from_yaml(brand_yml)
   return theme_colors_plotly(brand.color.background, brand.color.foreground)
 
 
 def theme_colors_pygal(_bg, fg, primary, secondary):
   from pygal.style import Style
+
   return Style(
-    background='transparent',
-    plot_background='transparent',
+    background="transparent",
+    plot_background="transparent",
     foreground=fg,
     foreground_strong=primary,
-    foreground_subtle=secondary or '#630C0D',
-    opacity='.6',
-    opacity_hover='.9',
-    transition='400ms ease-in',
-    colors=('#E853A0', '#E8537A', '#E95355', '#E87653', '#E89B53'))
+    foreground_subtle=secondary or "#630C0D",
+    opacity=".6",
+    opacity_hover=".9",
+    transition="400ms ease-in",
+    colors=("#E853A0", "#E8537A", "#E95355", "#E87653", "#E89B53"),
+  )
+
 
 def theme_brand_pygal(brand_yml):
+  from brand_yml import Brand
+
   brand = Brand.from_yaml(brand_yml)
   return theme_colors_pygal(
     brand.color.background,
@@ -139,18 +171,21 @@ def theme_brand_pygal(brand_yml):
 def theme_colors_seaborn(bg, fg):
   # seaborn accepts matplotlib rcparams
   return {
-      "axes.facecolor": bg,
-      "axes.edgecolor": fg,
-      "axes.labelcolor": fg,
-      "axes.titlecolor": fg,
-      "figure.facecolor": bg,
-      "figure.edgecolor": fg,
-      "text.color": fg,
-      "xtick.color": fg,
-      "ytick.color": fg,
-      "grid.color": fg,
+    "axes.facecolor": bg,
+    "axes.edgecolor": fg,
+    "axes.labelcolor": fg,
+    "axes.titlecolor": fg,
+    "figure.facecolor": bg,
+    "figure.edgecolor": fg,
+    "text.color": fg,
+    "xtick.color": fg,
+    "ytick.color": fg,
+    "grid.color": fg,
   }
 
+
 def theme_brand_seaborn(brand_yml):
-    brand = Brand.from_yaml(brand_yml)
-    return theme_colors_seaborn(brand.color.background, brand.color.foreground)
+  from brand_yml import Brand
+
+  brand = Brand.from_yaml(brand_yml)
+  return theme_colors_seaborn(brand.color.background, brand.color.foreground)
