@@ -20,7 +20,7 @@ def render(input,
            debug = False,
            quiet = False,
            pandoc_args = None):
-
+  """Render a Quarto document."""
   # params file to remove after render
   params_file = None
 

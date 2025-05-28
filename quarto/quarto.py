@@ -5,6 +5,7 @@ import shutil
 import subprocess
 
 def path():
+  """Return the path to the Quarto executable."""
   path_env = os.getenv("QUARTO_PATH")
   if path_env is None:
     return shutil.which("quarto")
