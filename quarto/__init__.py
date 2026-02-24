@@ -5,7 +5,7 @@ __version__ = "0.1.0"
 
 from quarto.quarto import path
 from quarto.render import render
-from quarto.metadata import metadata
+from quarto.metadata import metadata, write_yaml_metadata_block
 from quarto.theme import theme_colors_altair, theme_brand_altair, \
     theme_colors_bokeh, theme_brand_bokeh, \
     theme_colors_great_tables, theme_brand_great_tables, \
